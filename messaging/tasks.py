@@ -3,13 +3,13 @@ from .models import Message
 from django.contrib.auth.models import User
 
 @shared_task
-def send_message(sender_id, reciver_username, content):
+def send_message(sender_id, reciever_username, content):
     try:
         sender = User.objects.get(id=sender_id)
-        reciver = User.objects.get(username=reciver_username)
+        reciever = User.objects.get(username=reciever_username)
 
-        Message.objects.create(sender=sender, reciver=reciver, content=content)
-        return f"Message from {sender.username} to {reciver.username} created successfully."
+        Message.objects.create(sender=sender, reciever=reciever, content=content)
+        return f"Message from {sender.username} to {reciever.username} created successfully."
     except User.DoesNotExist as e:
         return f"Failed to create message: {e}"
     except Exception as e:
